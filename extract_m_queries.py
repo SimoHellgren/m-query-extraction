@@ -30,4 +30,4 @@ def extract_m_queries(filepath):
     # construct zipfile and return the contents of the file we're interested in
     package = ZipFile(BytesIO(package_parts_binary))
 
-    return package.open('Formulas/Section1.m').read()
+    return package.read('Formulas/Section1.m')
