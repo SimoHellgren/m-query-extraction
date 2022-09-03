@@ -4,13 +4,13 @@ import base64
 import struct
 from io import BytesIO
 
-def extract_m_queries(filepath):
+def extract_m_queries(stream: BytesIO):
     '''Extracts M queries (Power Query) from a given xlsx file.
        First opens the file as a zip archive and looks for a specific file
        containing another compressed archive, containing (among other things)
        the file in which the queries are stored.
     '''
-    archive = ZipFile(filepath)
+    archive = ZipFile(stream)
 
     # find the file containing m queries (the 'item' file containing a DataMashup-element)
     items = filter(
@@ -31,3 +31,12 @@ def extract_m_queries(filepath):
     package = ZipFile(BytesIO(package_parts_binary))
 
     return package.read('Formulas/Section1.m')
+
+
+if __name__ == "__main__":
+    import sys
+
+    for file in sys.argv[1:]:
+        with open(file, "rb") as f:
+            data = extract_m_queries(f)
+            print(data)
