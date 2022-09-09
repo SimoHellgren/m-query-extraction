@@ -4,7 +4,7 @@ import base64
 import struct
 from io import BytesIO
 
-def extract_m_queries(stream: BytesIO):
+def extract_m_queries(stream: BytesIO) -> bytes:
     '''Extracts M queries (Power Query) from a given xlsx file.
        First opens the file as a zip archive and looks for a specific file
        containing another compressed archive, containing (among other things)
